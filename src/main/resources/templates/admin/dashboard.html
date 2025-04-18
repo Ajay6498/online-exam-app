@@ -1,0 +1,81 @@
+<!---
+	<!DOCTYPE html>
+	<html xmlns:th="http://www.thymeleaf.org">
+	<head><title>Admin Dashboard</title></head>
+	<body>
+	<h2>Welcome, <span th:text="${admin.name}"></span></h2>
+	<h3>Create New Exam</h3>
+	<form th:action="@{/admin/create-exam}" method="post" th:object="${exam}">
+	    <label>Title:</label>
+	    <input type="text" th:field="*{title}" required />
+	    <button type="submit">Create</button>
+	</form>
+
+	<h3>Existing Exams</h3>
+	<ul>
+	    <li th:each="exam : ${exams}" th:text="${exam.title}"></li>
+	</ul>
+
+	<h3>Assign Exam</h3>
+	<form th:action="@{/admin/assign-exam}" method="post">
+	    <label>Select Exam:</label>
+	    <select name="examId">
+	        <option th:each="exam : ${exams}" th:value="${exam.id}" th:text="${exam.title}"></option>
+	    </select>
+
+	    <label>Select Student:</label>
+	    <select name="studentId">
+	        <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+	    </select>
+
+	    <button type="submit">Assign</button>
+	</form>
+	</body>
+	</html>
+
+
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Admin Dashboard</title></head>
+<body>
+
+<h2>Welcome, <span th:text="${admin.name}"></span></h2>
+
+<h3>Create New Exam</h3>
+<!-- Only show the form if 'exam' is in the model -->
+<div th:if="${exam != null}">
+    <form th:action="@{/admin/create-exam}" method="post" th:object="${exam}">
+        <label>Title:</label>
+        <input type="text" th:field="*{title}" required />
+        <button type="submit">Create</button>
+    </form>
+</div>
+<!-- Optional fallback if exam is missing -->
+<div th:if="${exam == null}">
+    <p style="color:red;">Unable to create exam: 'exam' model attribute is missing.</p>
+</div>
+
+<h3>Existing Exams</h3>
+<ul>
+    <li th:each="exam : ${exams}" th:text="${exam.title}"></li>
+</ul>
+
+<h3>Assign Exam</h3>
+<form th:action="@{/admin/assign-exam}" method="post">
+    <label>Select Exam:</label>
+    <select name="examId">
+        <option th:each="exam : ${exams}" th:value="${exam.id}" th:text="${exam.title}"></option>
+    </select>
+
+    <label>Select Student:</label>
+    <select name="studentId">
+        <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+    </select>
+
+    <button type="submit">Assign</button>
+</form>
+
+</body>
+</html>
+
