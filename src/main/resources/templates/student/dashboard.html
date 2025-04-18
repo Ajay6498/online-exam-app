@@ -1,13 +1,115 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Student Dashboard</title></head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Student Dashboard | ExamSystem</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap and Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-header h2 {
+            font-weight: 700;
+        }
+
+        .exam-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .exam-item {
+            background: #e9ecef;
+            margin-bottom: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .exam-item:hover {
+            background: #dce0e5;
+        }
+
+        .exam-link {
+            font-weight: 600;
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .exam-link:hover {
+            text-decoration: underline;
+        }
+
+        .start-icon {
+            font-size: 1.2rem;
+            color: #198754;
+        }
+
+        .no-exams {
+            text-align: center;
+            color: #888;
+            padding: 2rem;
+            font-style: italic;
+        }
+    </style>
+</head>
 <body>
-<h2>Welcome, <span th:text="${student.name}"></span></h2>
-<h3>Assigned Exams</h3>
-<ul>
-    <li th:each="exam : ${exams}">
-        <a th:href="@{'/student/take-exam/' + ${exam.id}}" th:text="${exam.title}"></a>
-    </li>
-</ul>
+
+<div class="dashboard-container">
+    <div class="welcome-header">
+        <h2>Welcome, <span th:text="${student.name}">Student Name</span> 👋</h2>
+        <p class="text-muted">Here are your upcoming exams</p>
+    </div>
+
+    <ul class="exam-list" th:if="${#lists.isEmpty(exams) == false}">
+        <li th:each="exam : ${exams}" class="exam-item">
+            <a class="exam-link" th:href="@{'/student/take-exam/' + ${exam.id}}" th:text="${exam.title}">Exam Title</a>
+            <i class="bi bi-play-circle-fill start-icon"></i>
+        </li>
+    </ul>
+
+    <div class="no-exams" th:if="${#lists.isEmpty(exams)}">
+        <i class="bi bi-emoji-frown" style="font-size: 2rem;"></i>
+        <p>No exams assigned yet.</p>
+    </div>
+</div>
+
 </body>
+ 
+
+<!-- Navigation Buttons for Top Margin -->
+<div class="top-navigation-buttons" style="margin: 20px 0; text-align: center;">
+    <button onclick="window.history.back()" 
+            style="padding: 8px 16px; margin-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        ← Back
+    </button>
+    <a href="/" 
+       style="padding: 8px 16px; background-color: #17a2b8; color: white; text-decoration: none; border-radius: 4px; display: inline-block;">
+        Return to Home
+    </a>
+</div>
+
 </html>

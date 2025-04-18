@@ -1,20 +1,118 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Student Registration</title></head>
+<head>
+    <title>Student Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .registration-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .registration-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #3f51b5;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+        .form-control {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+        .form-control:focus {
+            border-color: #3f51b5;
+            box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+        }
+        .btn-register {
+            width: 100%;
+            padding: 12px;
+            background-color: #3f51b5;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        .btn-register:hover {
+            background-color: #303f9f;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #6c757d;
+        }
+        .login-link a {
+            color: #3f51b5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .input-group-text {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
 <body>
-<h2>Register as Student</h2>
-<form th:action="@{/student/register}" method="post" th:object="${student}">
-    <label>Name:</label>
-    <input type="text" th:field="*{name}" required /><br/>
+    <div class="container">
+        <div class="registration-container">
+            <h2 class="registration-header">Student Registration</h2>
+            
+            <form th:action="@{/student/register}" method="post" th:object="${student}">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" 
+                           placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" th:field="*{email}" 
+                           placeholder="Enter your email" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" th:field="*{password}" 
+                           placeholder="Create a password" required>
+                    <div class="form-text">Use 8 or more characters with a mix of letters, numbers & symbols</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-register">Register</button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="/student/login">Sign in</a>
+            </div>
+        </div>
+    </div>
 
-    <label>Email:</label>
-    <input type="email" th:field="*{email}" required /><br/>
-
-    <label>Password:</label>
-    <input type="password" th:field="*{password}" required /><br/>
-
-    <button type="submit">Register</button>
-</form>
-<a href="/student/login">Already Registered? Login</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<!-- Navigation Buttons for Top Margin -->
+<div class="top-navigation-buttons" style="margin: 20px 0; text-align: center;">
+    <button onclick="window.history.back()" 
+            style="padding: 8px 16px; margin-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        ← Back
+    </button>
+    <a href="/" 
+       style="padding: 8px 16px; background-color: #17a2b8; color: white; text-decoration: none; border-radius: 4px; display: inline-block;">
+        Return to Home
+    </a>
+</div>
 </html>

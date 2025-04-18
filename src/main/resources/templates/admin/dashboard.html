@@ -1,81 +1,158 @@
-<!---
-	<!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org">
-	<head><title>Admin Dashboard</title></head>
-	<body>
-	<h2>Welcome, <span th:text="${admin.name}"></span></h2>
-	<h3>Create New Exam</h3>
-	<form th:action="@{/admin/create-exam}" method="post" th:object="${exam}">
-	    <label>Title:</label>
-	    <input type="text" th:field="*{title}" required />
-	    <button type="submit">Create</button>
-	</form>
-
-	<h3>Existing Exams</h3>
-	<ul>
-	    <li th:each="exam : ${exams}" th:text="${exam.title}"></li>
-	</ul>
-
-	<h3>Assign Exam</h3>
-	<form th:action="@{/admin/assign-exam}" method="post">
-	    <label>Select Exam:</label>
-	    <select name="examId">
-	        <option th:each="exam : ${exams}" th:value="${exam.id}" th:text="${exam.title}"></option>
-	    </select>
-
-	    <label>Select Student:</label>
-	    <select name="studentId">
-	        <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
-	    </select>
-
-	    <button type="submit">Assign</button>
-	</form>
-	</body>
-	</html>
-
-
--->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Admin Dashboard</title></head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | ExamSystem</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #eef2f3, #8e9eab);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h2 {
+            color: #4e73df;
+        }
+
+        .section-title {
+            border-left: 5px solid #4e73df;
+            padding-left: 10px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #343a40;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .btn-custom {
+            background-color: #4e73df;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background-color: #375abb;
+        }
+
+        .nav-buttons {
+            text-align: right;
+            margin-bottom: 1.5rem;
+        }
+
+        .list-group-item {
+            font-weight: 500;
+        }
+
+        .icon-title {
+            margin-right: 8px;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #6c757d;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
 <body>
 
-<h2>Welcome, <span th:text="${admin.name}"></span></h2>
+<div class="container dashboard-container">
 
-<h3>Create New Exam</h3>
-<!-- Only show the form if 'exam' is in the model -->
-<div th:if="${exam != null}">
-    <form th:action="@{/admin/create-exam}" method="post" th:object="${exam}">
-        <label>Title:</label>
-        <input type="text" th:field="*{title}" required />
-        <button type="submit">Create</button>
-    </form>
+    <!-- Top Navigation Buttons -->
+    <div class="nav-buttons">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-arrow-left-circle"></i> Back
+        </a>
+        <a href="/" class="btn btn-outline-primary">
+            <i class="bi bi-house-fill"></i> Home
+        </a>
+    </div>
+
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <h2><i class="bi bi-person-circle icon-title"></i>Welcome, <span th:text="${admin.name}"></span></h2>
+        <p class="text-muted">Manage your exams and assignments here</p>
+    </div>
+
+    <!-- Create Exam -->
+    <div class="mb-5">
+        <h4 class="section-title"><i class="bi bi-plus-square-dotted icon-title"></i>Create New Exam</h4>
+        <div th:if="${exam != null}">
+            <form th:action="@{/admin/create-exam}" method="post" th:object="${exam}">
+                <div class="mb-3">
+                    <label class="form-label">Exam Title</label>
+                    <input type="text" class="form-control" th:field="*{title}" placeholder="Enter exam title" required>
+                </div>
+                <button type="submit" class="btn btn-custom">
+                    <i class="bi bi-check-circle-fill"></i> Create
+                </button>
+            </form>
+        </div>
+        <div th:if="${exam == null}">
+            <p class="text-danger">Unable to create exam: 'exam' model attribute is missing.</p>
+        </div>
+    </div>
+
+    <!-- Existing Exams -->
+    <div class="mb-5">
+        <h4 class="section-title"><i class="bi bi-clipboard-data icon-title"></i>Existing Exams</h4>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="exam : ${exams}" th:text="${exam.title}"></li>
+        </ul>
+    </div>
+
+    <!-- Assign Exam -->
+    <div>
+        <h4 class="section-title"><i class="bi bi-person-plus icon-title"></i>Assign Exam</h4>
+        <form th:action="@{/admin/assign-exam}" method="post">
+            <div class="mb-3">
+                <label class="form-label">Select Exam</label>
+                <select name="examId" class="form-select" required>
+                    <option value="" disabled selected>Select an exam</option>
+                    <option th:each="exam : ${exams}" th:value="${exam.id}" th:text="${exam.title}"></option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Select Student</label>
+                <select name="studentId" class="form-select" required>
+                    <option value="" disabled selected>Select a student</option>
+                    <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-warning">
+                <i class="bi bi-send-check"></i> Assign
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-note">
+        &copy; 2025 ExamSystem | Admin Panel
+    </div>
 </div>
-<!-- Optional fallback if exam is missing -->
-<div th:if="${exam == null}">
-    <p style="color:red;">Unable to create exam: 'exam' model attribute is missing.</p>
-</div>
-
-<h3>Existing Exams</h3>
-<ul>
-    <li th:each="exam : ${exams}" th:text="${exam.title}"></li>
-</ul>
-
-<h3>Assign Exam</h3>
-<form th:action="@{/admin/assign-exam}" method="post">
-    <label>Select Exam:</label>
-    <select name="examId">
-        <option th:each="exam : ${exams}" th:value="${exam.id}" th:text="${exam.title}"></option>
-    </select>
-
-    <label>Select Student:</label>
-    <select name="studentId">
-        <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
-    </select>
-
-    <button type="submit">Assign</button>
-</form>
 
 </body>
 </html>
-

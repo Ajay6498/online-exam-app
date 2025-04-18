@@ -69,22 +69,6 @@
             padding: 2rem 0;
             margin-top: 3rem;
         }
-        .contact-info {
-            background-color: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-        }
-        .email-link {
-            color: #2575fc;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        .email-link:hover {
-            color: #6a11cb;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -196,25 +180,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Contact Us</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="contact-info text-center">
-                        <h3 class="mb-4">Have questions or need support?</h3>
-                        <p class="lead mb-4">We're here to help you with any questions about our Online Exam System.</p>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="bi bi-envelope-fill me-3" style="font-size: 1.5rem; color: #2575fc;"></i>
-                            <a href="mailto:ajaybawaskar19@gmail.com" class="email-link">ajaybawaskar19@gmail.com</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="text-center">
         <div class="container">
@@ -228,7 +193,7 @@
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-white">Privacy Policy</a></li>
                         <li><a href="#" class="text-white">Terms of Service</a></li>
-                        <li><a href="#contact" class="text-white">Contact Support</a></li>
+                        <li><a href="#" class="text-white">Help Center</a></li>
                     </ul>
                 </div>
             </div>
