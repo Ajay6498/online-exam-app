@@ -7,166 +7,328 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #4d0b9a;
+            --accent-color: #17a2b8;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+            --text-gray: #6c757d;
+        }
+        
         body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            margin: 0;
         }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
         .registration-container {
-            max-width: 500px;
-            margin: 5rem auto;
-            padding: 2rem;
+            max-width: 520px;
+            margin: 2rem auto;
+            padding: 2.5rem;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
+        
         .registration-header {
             text-align: center;
-            margin-bottom: 2rem;
-            color: #343a40;
+            margin-bottom: 2.5rem;
         }
+        
         .registration-header h2 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--dark-gray);
+            font-size: 1.75rem;
         }
+        
         .registration-header p {
-            color: #6c757d;
+            color: var(--text-gray);
+            font-size: 1rem;
+            margin-bottom: 0;
         }
+        
         .form-label {
             font-weight: 500;
             margin-bottom: 0.5rem;
+            color: var(--dark-gray);
+            font-size: 0.95rem;
         }
+        
         .form-control {
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            border: 1px solid #ced4da;
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            border: 1px solid #e0e3e7;
             margin-bottom: 1.25rem;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
+        
         .form-control:focus {
-            border-color: #6a11cb;
-            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.25);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(106, 17, 203, 0.15);
         }
+        
+        .input-group-text {
+            background-color: var(--light-gray);
+            border-right: none;
+            padding: 0.85rem 1rem;
+        }
+        
+        .input-group .form-control {
+            border-left: none;
+            padding-left: 0.5rem;
+        }
+        
         .btn-register {
-            background-color: #6a11cb;
+            background-color: var(--primary-color);
             border: none;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-weight: 500;
+            padding: 0.85rem;
+            border-radius: 10px;
+            font-weight: 600;
             width: 100%;
             margin-top: 0.5rem;
             transition: all 0.3s;
+            font-size: 1rem;
         }
+        
         .btn-register:hover {
-            background-color: #4d0b9a;
+            background-color: var(--secondary-color);
             transform: translateY(-2px);
         }
+        
         .login-link {
             text-align: center;
-            margin-top: 1.5rem;
-            color: #6c757d;
+            margin-top: 1.75rem;
+            color: var(--text-gray);
+            font-size: 0.95rem;
         }
+        
         .login-link a {
-            color: #6a11cb;
+            color: var(--primary-color);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.2s;
         }
-        .input-group-text {
-            background-color: #f8f9fa;
-            border-right: none;
+        
+        .login-link a:hover {
+            text-decoration: underline;
         }
-        .input-group .form-control {
-            border-left: none;
-        }
+        
         .password-requirements {
             font-size: 0.85rem;
-            color: #6c757d;
-            margin-top: -1rem;
-            margin-bottom: 1rem;
+            color: var(--text-gray);
+            margin-top: -0.75rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            background-color: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Password strength meter */
+        .password-strength {
+            height: 4px;
+            background-color: #e9ecef;
+            border-radius: 2px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+        
+        .strength-meter {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 576px) {
+            .registration-container {
+                margin: 1rem;
+                padding: 1.75rem;
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="registration-container">
-            <div class="registration-header">
-                <h2><i class="bi bi-person-plus-fill"></i> Create Admin Account</h2>
-                <p>Register to access the administration dashboard</p>
-            </div>
-
-            <form th:action="@{/admin/register}" method="post" th:object="${admin}">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Full Name</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
-                        <input type="text" class="form-control" id="name" th:field="*{name}" 
-                               placeholder="Enter your full name" required>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email Address</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                        <input type="email" class="form-control" id="email" th:field="*{email}" 
-                               placeholder="Enter your email" required>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                        <input type="password" class="form-control" id="password" th:field="*{password}" 
-                               placeholder="Create a password" required>
-                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                    </div>
-                    <div class="password-requirements">
-                        <small>Use 8+ characters with a mix of letters, numbers & symbols</small>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-register">
-                    <i class="bi bi-person-plus"></i> Register
-                </button>
-            </form>
-
-            <div class="login-link">
-                Already have an account? <a href="/admin/login">Sign in here</a>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-shield-lock-fill" style="color: var(--primary-color);"></i>
+                <span>ExamSystem</span>
+            </a>
+            <div class="d-flex">
+                <a href="/admin/login" class="btn btn-outline-secondary me-2">Sign In</a>
+                <a href="/" class="btn btn-outline-primary">Home</a>
             </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        <div class="container">
+            <div class="registration-container">
+                <div class="registration-header">
+                    <h2><i class="bi bi-person-plus-fill me-2" style="color: var(--primary-color);"></i> Admin Registration</h2>
+                    <p>Create your administrator account to manage the system</p>
+                </div>
+
+                <form th:action="@{/admin/register}" method="post" th:object="${admin}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" 
+                                   placeholder="Enter your full name" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                            <input type="email" class="form-control" id="email" th:field="*{email}" 
+                                   placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" 
+                                   placeholder="Create a password" required>
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="bi bi-eye-fill"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-meter" id="strengthMeter"></div>
+                        </div>
+                        <div class="password-requirements">
+                            <small>Password must contain at least:</small><br>
+                            <small><i class="bi bi-check-circle-fill text-success me-1"></i> 8 characters</small><br>
+                            <small><i class="bi bi-circle me-1" id="uppercaseCheck"></i> 1 uppercase letter</small><br>
+                            <small><i class="bi bi-circle me-1" id="numberCheck"></i> 1 number</small><br>
+                            <small><i class="bi bi-circle me-1" id="specialCheck"></i> 1 special character</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-register">
+                        <i class="bi bi-person-plus me-2"></i> Register Account
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    Already have an account? <a href="/admin/login">Sign in here</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="text-muted">© 2023 ExamSystem. All rights reserved.</div>
+        </div>
+    </footer>
 
     <script>
         // Toggle password visibility
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', function() {
             const icon = this.querySelector('i');
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
             
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('bi-eye-fill');
-                icon.classList.add('bi-eye-slash-fill');
+            icon.classList.toggle('bi-eye-fill');
+            icon.classList.toggle('bi-eye-slash-fill');
+        });
+
+        // Password strength checker
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strengthMeter = document.getElementById('strengthMeter');
+            const uppercaseCheck = document.getElementById('uppercaseCheck');
+            const numberCheck = document.getElementById('numberCheck');
+            const specialCheck = document.getElementById('specialCheck');
+            
+            // Reset checks
+            uppercaseCheck.className = 'bi bi-circle me-1';
+            numberCheck.className = 'bi bi-circle me-1';
+            specialCheck.className = 'bi bi-circle me-1';
+            
+            let strength = 0;
+            
+            // Length check
+            if (password.length >= 8) strength += 25;
+            
+            // Uppercase check
+            if (/[A-Z]/.test(password)) {
+                strength += 25;
+                uppercaseCheck.className = 'bi bi-check-circle-fill text-success me-1';
+            }
+            
+            // Number check
+            if (/\d/.test(password)) {
+                strength += 25;
+                numberCheck.className = 'bi bi-check-circle-fill text-success me-1';
+            }
+            
+            // Special character check
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                strength += 25;
+                specialCheck.className = 'bi bi-check-circle-fill text-success me-1';
+            }
+            
+            // Update strength meter
+            strengthMeter.style.width = strength + '%';
+            
+            // Update color based on strength
+            if (strength < 50) {
+                strengthMeter.style.backgroundColor = '#dc3545'; // Red
+            } else if (strength < 75) {
+                strengthMeter.style.backgroundColor = '#fd7e14'; // Orange
             } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('bi-eye-slash-fill');
-                icon.classList.add('bi-eye-fill');
+                strengthMeter.style.backgroundColor = '#28a745'; // Green
             }
         });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-<!-- Navigation Buttons for Top Margin -->
-<div class="top-navigation-buttons" style="margin: 20px 0; text-align: center;">
-    <button onclick="window.history.back()" 
-            style="padding: 8px 16px; margin-right: 10px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">
-        ← Back
-    </button>
-    <a href="/" 
-       style="padding: 8px 16px; background-color: #17a2b8; color: white; text-decoration: none; border-radius: 4px; display: inline-block;">
-        Return to Home
-    </a>
-</div>
 </html>
