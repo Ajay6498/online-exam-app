@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class OnlineExamApplicationApplication {
+	//starting point of the application localhost:8080
 
 	public static void main(String[] args) {
 		SpringApplication.run(OnlineExamApplicationApplication.class, args);
